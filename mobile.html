@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#12233a">
+  <title>FókuszSziget - Mobilnézet</title>
+  <style>
+    :root { --navy:#12233a; --soft:#28415f; --muted:#7d8b9c; --paper:#f6f5ef; --white:#fff; --yellow:#f6c94d; --mint:#bfe7d5; --coral:#f17d68; --line:#e4e7e5; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; background:#dfe5e7; color:var(--navy); font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    .phone { width:min(100%,430px); min-height:100vh; overflow:hidden; background:var(--paper); box-shadow:0 22px 60px rgba(18,35,58,.2); }
+    @media (min-width:500px) { .phone { min-height:820px; max-height:900px; border:12px solid var(--navy); border-radius:34px; } }
+    .top { padding:24px 22px 18px; background:var(--navy); color:var(--white); border-radius:0 0 28px 28px; }
+    .topline { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand { display:flex; align-items:center; gap:9px; font-weight:950; letter-spacing:-.04em; }
+    .brand-mark { width:28px; height:28px; display:grid; place-items:center; border-radius:9px; background:var(--yellow); color:var(--navy); }
+    .avatar { display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--coral); color:var(--navy); font-size:.78rem; font-weight:950; }
+    .hello { margin-top:28px; }
+    .hello small { color:rgba(255,255,255,.57); font-size:.74rem; font-weight:800; }
+    .hello h1 { margin:5px 0 0; font-size:2rem; letter-spacing:-.065em; line-height:1.03; }
+    .top-status { display:inline-flex; align-items:center; gap:7px; margin-top:15px; padding:7px 10px; border-radius:99px; background:rgba(191,231,213,.16); color:var(--mint); font-size:.68rem; font-weight:900; }
+    .top-status::before { content:""; width:6px; height:6px; border-radius:50%; background:#6bd29a; }
+    main { padding:20px 18px 95px; }
+    .goal-card { padding:17px; border:1px solid var(--line); border-radius:18px; background:var(--white); }
+    .eyebrow { color:var(--coral); font-size:.68rem; font-weight:950; letter-spacing:.12em; text-transform:uppercase; }
+    .goal-card h2 { margin:7px 0 0; font-size:1.25rem; letter-spacing:-.045em; }
+    .goal-form { display:flex; gap:8px; margin-top:13px; }
+    .goal-form input { min-width:0; flex:1; border:1px solid var(--line); border-radius:10px; padding:11px 12px; color:var(--navy); outline:none; background:var(--paper); }
+    .goal-form button { width:42px; border:0; border-radius:10px; background:var(--yellow); color:var(--navy); font-size:1.2rem; font-weight:950; }
+    .timer-card { margin-top:15px; padding:19px 17px 17px; border-radius:22px; background:var(--navy); color:var(--white); }
+    .timer-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .timer-head strong { font-size:.84rem; }
+    .timer-head span { color:var(--yellow); font-size:.68rem; font-weight:950; letter-spacing:.1em; }
+    .ring { --progress:0%; position:relative; display:grid; place-items:center; width:190px; aspect-ratio:1; margin:22px auto 15px; border-radius:50%; background:conic-gradient(var(--yellow) var(--progress),#30445d 0); }
+    .ring::after { content:""; position:absolute; inset:11px; border-radius:50%; background:var(--navy); }
+    .ring-content { position:relative; z-index:1; display:grid; gap:3px; text-align:center; }
+    .ring-content strong { font-size:2.7rem; letter-spacing:-.1em; }
+    .ring-content span { color:rgba(255,255,255,.55); font-size:.65rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+    .timer-actions { display:flex; gap:8px; }
+    .timer-actions button { flex:1; border:0; border-radius:11px; padding:12px 9px; background:var(--yellow); color:var(--navy); font-weight:950; }
+    .timer-actions button.secondary { border:1px solid rgba(255,255,255,.2); background:transparent; color:var(--white); }
+    .quick-lengths { display:flex; justify-content:center; gap:6px; margin-top:11px; }
+    .quick-lengths button { border:0; border-radius:99px; padding:6px 9px; background:transparent; color:rgba(255,255,255,.55); font-size:.68rem; font-weight:850; }
+    .quick-lengths button.active { background:rgba(246,201,77,.15); color:var(--yellow); }
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:22px 3px 10px; }
+    .section-head strong { font-size:.9rem; letter-spacing:-.02em; }
+    .section-head span { color:var(--muted); font-size:.7rem; font-weight:800; }
+    .task-list,.thought-list { display:grid; gap:8px; margin:0; padding:0; list-style:none; }
+    .task,.thought { display:flex; align-items:center; gap:9px; min-height:43px; padding:10px 11px; border:1px solid var(--line); border-radius:12px; background:var(--white); color:var(--soft); font-size:.8rem; }
+    .task input { accent-color:var(--coral); }
+    .task label { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .task.done label { color:var(--muted); text-decoration:line-through; }
+    .empty { color:var(--muted); font-size:.74rem; padding:8px 0; }
+    .thought { color:var(--muted); }
+    .thought::before { content:"↗"; color:var(--coral); font-weight:950; }
+    .thought-form { display:flex; gap:8px; }
+    .thought-form input { min-width:0; flex:1; border:1px solid var(--line); border-radius:10px; padding:10px 11px; background:var(--white); outline:none; }
+    .thought-form button { width:40px; border:0; border-radius:10px; background:var(--mint); color:var(--navy); font-weight:950; }
+    .bottom-nav { position:fixed; bottom:0; width:min(100%,430px); display:flex; justify-content:space-around; padding:13px 10px max(13px,env(safe-area-inset-bottom)); border-top:1px solid var(--line); background:rgba(255,255,255,.92); backdrop-filter:blur(18px); }
+    @media (min-width:500px) { .bottom-nav { position:absolute; } }
+    .bottom-nav button { display:grid; gap:3px; border:0; background:transparent; color:var(--muted); font-size:.65rem; font-weight:850; }
+    .bottom-nav button.active { color:var(--navy); }
+    .bottom-nav b { font-size:1.05rem; line-height:1; }
+    .toast { position:fixed; left:50%; bottom:80px; width:max-content; max-width:calc(100% - 40px); padding:11px 14px; border-radius:11px; background:var(--navy); color:var(--white); font-size:.75rem; font-weight:800; transform:translate(-50%,12px); opacity:0; pointer-events:none; transition:.2s ease; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <header class="top">
+      <div class="topline"><div class="brand"><span class="brand-mark">◎</span> FókuszSziget</div><div class="avatar">D</div></div>
+      <div class="hello"><small>MAI FÓKUSZ</small><h1>Szia! Kezdjük kicsiben.</h1><span class="top-status">Nyugodt mód</span></div>
+    </header>
+    <main>
+      <section class="goal-card"><span class="eyebrow">Első lépés</span><h2>Mit szeretnél most elkezdeni?</h2><form class="goal-form" id="goal-form"><input id="goal-input" placeholder="Pl. megnyitom a jegyzetet" maxlength="60" aria-label="Mai első lépés"><button aria-label="Első lépés mentése">+</button></form></section>
+      <section class="timer-card"><div class="timer-head"><strong>Fókuszblokk</strong><span id="mode-text">25 PERC</span></div><div class="ring" id="ring"><div class="ring-content"><strong id="display">25:00</strong><span>egy feladatra figyelsz</span></div></div><div class="timer-actions"><button id="start">Indítás</button><button class="secondary" id="reset">Újrakezdés</button></div><div class="quick-lengths"><button data-min="15">15 perc</button><button data-min="25" class="active">25 perc</button><button data-min="45">45 perc</button></div></section>
+      <div class="section-head"><strong>Mai feladatok</strong><span id="task-total">0 feladat</span></div>
+      <ul class="task-list" id="tasks"><li class="empty" id="task-empty">Az első lépésed itt jelenik meg.</li></ul>
+      <div class="section-head"><strong>Gondolatparkoló</strong><span>későbbre</span></div>
+      <form class="thought-form" id="thought-form"><input id="thought-input" maxlength="60" placeholder="Ami most elvonja a figyelmed" aria-label="Zavaró gondolat"><button aria-label="Gondolat mentése">↗</button></form>
+      <ul class="thought-list" id="thoughts"><li class="empty" id="thought-empty">Üres. Jó helyen van.</li></ul>
+    </main>
+    <nav class="bottom-nav" aria-label="Mobil navigáció"><button class="active"><b>⌂</b>Fókusz</button><button><b>✓</b>Feladatok</button><button><b>↗</b>Parkoló</button></nav>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    (() => {
+      const key='fokusz-mobile-v1'; let state={minutes:25,remaining:1500,running:false,tasks:[],thoughts:[]}; let interval=null;
+      try{state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}}catch{}
+      const $=s=>document.querySelector(s), display=$('#display'), ring=$('#ring'), start=$('#start'), toast=$('#toast');
+      const save=()=>{try{localStorage.setItem(key,JSON.stringify(state))}catch{}};
+      const time=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+      const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),2200)};
+      function render(){display.textContent=time(state.remaining);ring.style.setProperty('--progress',`${Math.max(0,Math.min(100,(1-state.remaining/(state.minutes*60))*100))}%`);start.textContent=state.running?'Szüneteltetés':'Indítás';$('#mode-text').textContent=`${state.minutes} PERC`;$('#task-total').textContent=`${state.tasks.length} feladat`;$('.quick-lengths button.active')?.classList.remove('active');$(`.quick-lengths button[data-min="${state.minutes}"]`)?.classList.add('active');$('#tasks').innerHTML=state.tasks.length?'':'<li class="empty">Az első lépésed itt jelenik meg.</li>';state.tasks.forEach((t,i)=>{const li=document.createElement('li');li.className=`task${t.done?' done':''}`;li.innerHTML=`<input type="checkbox" ${t.done?'checked':''}><label></label>`;li.querySelector('label').textContent=t.text;li.querySelector('input').onchange=e=>{state.tasks[i].done=e.target.checked;render()};$('#tasks').appendChild(li)});$('#thoughts').innerHTML=state.thoughts.length?'':'<li class="empty">Üres. Jó helyen van.</li>';state.thoughts.forEach(t=>{const li=document.createElement('li');li.className='thought';li.textContent=t;$('#thoughts').appendChild(li)});save()}
+      function tick(){if(!state.running)return;state.remaining--;if(state.remaining<=0){state.remaining=0;state.running=false;clearInterval(interval);say('Szép munka. A blokk elkészült.')}render()}
+      start.onclick=()=>{state.running=!state.running;clearInterval(interval);if(state.running){interval=setInterval(tick,1000);say('Fókusz elindítva. Csak a következő lépés.')}render()};$('#reset').onclick=()=>{state.running=false;clearInterval(interval);state.remaining=state.minutes*60;render();say('Újrakezdheted nyugodtan.')};document.querySelectorAll('.quick-lengths button').forEach(b=>b.onclick=()=>{state.minutes=Number(b.dataset.min);state.remaining=state.minutes*60;state.running=false;clearInterval(interval);render()});$('#goal-form').onsubmit=e=>{e.preventDefault();const i=$('#goal-input');if(!i.value.trim())return;state.tasks.unshift({text:i.value.trim(),done:false});i.value='';render();say('Az első lépés elmentve.')};$('#thought-form').onsubmit=e=>{e.preventDefault();const i=$('#thought-input');if(!i.value.trim())return;state.thoughts.unshift(i.value.trim());i.value='';render();say('Elmentve későbbre.')};render();
+    })();
+  </script>
+</body>
+</html>
